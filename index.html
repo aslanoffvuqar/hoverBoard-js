@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoverboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="board">
+
+    </div>
+
+    <script>
+        const board = (row, column) => {
+            const boardWrapper = document.getElementById("board");
+
+            const width = 100 / column - 2;
+            const height = 30;
+
+            for (let i = 0; i < row; i++) {
+                let boardRow = document.createElement("div");
+                boardRow.classList.add("board-row");
+
+                for (let j = 0; j < column; j++) {
+                    let boardColumn = document.createElement("div");
+                    boardColumn.classList.add("board-column");
+                    boardColumn.style.width = width + "%";
+                    boardColumn.style.height = height + "px";
+
+                    boardColumn.addEventListener("mouseover", function () {
+                        boardColumn.style.backgroundColor = randomColor();
+                        boardColumn.style.transition = "none"
+                    });
+
+                    boardColumn.addEventListener("mouseout", function () {
+                        boardColumn.style.backgroundColor = "rgb(29, 29, 29)";
+                        boardColumn.style.transition = "background-color 0.7s ease-in-out";
+                    });
+
+                    boardRow.appendChild(boardColumn);
+                }
+
+                boardWrapper.appendChild(boardRow);
+            }
+        };
+
+        board(16, 10);
+
+
+        function randomColor() {
+            let color = [];
+            for (let i = 0; i < 3; i++) {
+                color.push(Math.floor(Math.random() * 256));
+            }
+            return 'rgb(' + color.join(', ') + ')';
+        }
+        document.querySelector('.boardColumn').addEventListener('mouseover', event => {
+            event.target.style.fill = randomColor();
+        });
+    </script>
+</body>
+
+</html>
